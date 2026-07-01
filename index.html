@@ -1,13 +1,339 @@
-
-<meta name="google-adsense-account" content="ca-pub-1422168741820662">
-
-
-
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1422168741820662"
      crossorigin="anonymous"></script>
 
 
-<div style="width:100%;aspect-ratio:16/9;background:#000;border-radius:8px;overflow:hidden"><video id="vid_cjbdei8f0" controls autoplay style="width:100%;height:100%;object-fit:contain;background:#000"></video></div><script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script><script>(function(){const v=document.getElementById("vid_cjbdei8f0"),u="https://feeds.intoday.in/aajtak/api/aajtakhd/master.m3u8";if(Hls.isSupported()){const t=new Hls;t.loadSource(u),t.attachMedia(v),t.on(Hls.Events.MANIFEST_PARSED,(()=>v.play().catch((e=>console.log(e)))))}else v.canPlayType("application/vnd.apple.mpegurl")&&(v.src=u,v.addEventListener("loadedmetadata",(()=>v.play().catch((e=>console.log(e))))))})();</script>
+
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Timetable</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    html{scroll-behavior:smooth}
+    #timetableWrapper{all:initial;display:block;font-family:Arial,sans-serif;background:#f9fcff;padding:10px;box-sizing:border-box;width:100%;color:#111}
+    #timetableWrapper h2{text-align:center;margin:0 0 10px;font-size:16px;line-height:1.5;font-weight:bold}
+    #duration-counter{font-weight:normal;color:#666;font-size:0.9em;margin-left:4px;display:inline;}
+    #timetableWrapper #statusBox{margin:0 auto 15px;border:2px solid #333;border-radius:6px;text-align:center;color:#111;background:linear-gradient(90deg,#f7f3e8,#fff9ed);min-width:320px;padding:0}
+    #timetableWrapper #clock{padding:8px 12px;font-weight:600;color:#444;border-bottom:1px solid #e0e0e0;font-size:13px}
+    #timetableWrapper #classStatus{padding:10px 12px;font-size:14px;font-weight:bold}
+    .table-scroll-wrapper{overflow-x:auto;margin-bottom:15px}
+    #timetableWrapper table{width:100%;border-collapse:collapse;font-size:12.5px}
+    #timetableWrapper th,#timetableWrapper td{border:1px solid #333;text-align:center;padding:5px;vertical-align:middle;background:#fff;transition:background-color 0.4s ease,color 0.2s ease}
+    #timetableWrapper tr:hover td{background-color:#fafafa}
+    #timetableWrapper th{background:#444;color:#fff;font-size:11.5px}
+    #timetableWrapper .faculty-table th{background:#666;color:#fff;white-space:nowrap}
+    #timetableWrapper .faculty-table td{white-space:nowrap}
+    #timetableWrapper .whatsapp-link{display:inline-block;vertical-align:middle;margin-left:5px;text-decoration:none;font-size:1.2em;color:#25D366}
+    #timetableWrapper .current{background:#d4f8d4!important;font-weight:bold}
+    #timetableWrapper .upcoming{background:#fff3cd!important;font-weight:bold}
+    #timetableWrapper .ended{background:#f0f0f0!important;color:#999}
+    #timetableWrapper .tomorrow-highlight{background:#e0e8ff!important}
+    #timetableWrapper .today-row-header{background:#d4f8d4!important}
+    .timer-green{color:#008000;font-weight:700} .timer-orange{color:#ff8c00;font-weight:700} .timer-red{color:#d62828;font-weight:700}
+    .notice-ongoing{color:#28a745;font-weight:700} .notice-next{color:#B8860B;font-weight:700}
+    @media (max-width:768px){#timetableWrapper table{font-size:10.5px}#timetableWrapper h2{font-size:13px}#timetableWrapper th,#timetableWrapper td{padding:3px}}
+  </style>
+</head>
+<body>
+  <div id="timetableWrapper">
+    <h2>
+      Oriental Institute of Science & Technology, Bhopal<br>
+      Branch: EX | Room: 301 | Sem: II<br>
+      Timetable W.E.F: 16-03-2026<span id="duration-counter"></span>
+    </h2>
+    <div id="statusBox">
+        <div id="clock">Loading...</div>
+        <div id="classStatus">Loading...</div>
+    </div>
+    <div class="table-scroll-wrapper">
+      <table id="timetable">
+        <thead>
+            <tr>
+              <th>Day / Time</th>
+              <th>9:00-9:50</th><th>9:50-10:40</th><th>10:40-11:30</th>
+              <th>11:30-12:20</th><th>12:20-1:00</th><th>1:00-1:40</th>
+              <th>1:40-2:20</th><th>2:20-3:00</th><th>3:00-3:40</th>
+            </tr>
+        </thead>
+        <tbody id="timetable-body"></tbody>
+      </table>
+    </div>
+    <h3>Faculty List</h3>
+    <div class="table-scroll-wrapper">
+      <table class="faculty-table" id="faculty">
+        <tr><th>Subject</th> <th>Code</th> <th>Faculty Name</th> <th>Phone Number</th></tr>
+        <tr data-code="BT-201"><td>EP</td><td>BT 201</td><td>DR. Shubham Yadav</td><td>TBA<a href="#" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i></a></td></tr>
+        <tr data-code="BT-202"><td>M-II</td><td>BT-202</td><td>Prof Shraddha Badrecha</td><td>TBA<a href="#" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i></a></td></tr>
+        <tr data-code="BT-203"><td>BME</td><td>BT 203</td><td>Prof Anubhav Tiwari</td><td>TBA<a href="#" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i></a></td></tr>
+        <tr data-code="BT-204"><td>BCEM</td><td>BT 204</td><td>Dr. Mumtaz Begam</td><td>TBA<a href="#" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i></a></td></tr>
+        <tr data-code="BT-205"><td>BCE</td><td>BT 205</td><td>Prof. Vaibhav Krishan chaurasia</td><td>TBA<a href="#" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i></a></td></tr>
+        <tr data-code="BT-206"><td>LLS</td><td>BT 206</td><td>Prof. Manali Sharma</td><td>TBA<a href="#" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i></a></td></tr>
+        <tr data-code="TG"><td>TG</td><td></td><td>Prof. Manali Sharma/Prof. Sachindra</td><td>TBA<a href="#" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i></a></td></tr>
+      </table>
+    </div>
+    <p><b>Legend:</b> <span style="background:#d4f8d4;padding:2px 6px;">Current</span> | <span style="background:#fff3cd;padding:2px 6px;">Upcoming</span> | <span style="background:#f0f0f0;padding:2px 6px;color:#999;">Ended</span> | <span style="background:#e0e8ff;padding:2px 6px;"><span id="tomorrow-legend-text">Tomorrow</span></span></p>
+    <script>
+      const scheduleData = {
+        "Monday": { before: [{ n: "BCEM (BT-204)", s: 1 }, { n: "BME (BT-203)", s: 1 }, { n: "EP/BCE (BT-201/BT-205)", s: 2 }], after: [{ n: "EP (BT-201)", s: 1 }, { n: "BCE (BT-205)", s: 1 }, { n: "M-II (BT-202)", s: 1 }, { n: "M-II (BT-202)", s: 1 }] },
+        "Tuesday": { before: [{ n: "M-II (BT-202)", s: 1 }, { n: "BCE (BT-205)", s: 1 }, { n: "EP (BT-201)", s: 1 }, { n: "BCEM (BT-204)", s: 1 }], after: [{ n: "BCEM/BME (BT-204/BT-203)", s: 2 }, { n: "BME (BT-203)", s: 1 }, { n: "TG/library", s: 1 }] },
+        "Wednesday": { before: [{ n: "BCE (BT-205)", s: 1 }, { n: "EP (BT-201)", s: 1 }, { n: "LLS (BT-206)", s: 2 }], after: [{ n: "M-II (BT-202)", s: 1 }, { n: "BME (BT-203)", s: 1 }, { n: "BCEM (BT-204)", s: 1 }, { n: "BCEM (BT-204)", s: 1 }] },
+        "Thursday": { before: [{ n: "EP (BT-201)", s: 1 }, { n: "M-II (BT-202)", s: 1 }, { n: "BME (BT-203)", s: 1 }, { n: "BCEM (BT-204)", s: 1 }], after: [{ n: "EP (BT-201)", s: 1 }, { n: "BCE (BT-205)", s: 1 }, { n: "BME/BCEM (BT-203/BT-204)", s: 2 }] },
+        "Friday": { before: [{ n: "BCEM (BT-204)", s: 1 }, { n: "BCE (BT-205)", s: 1 }, { n: "BME (BT-203)", s: 1 }, { n: "M-II (BT-202)", s: 1 }], after: [{ n: "BME (BT-203)", s: 1 }, { n: "EP (BT-201)", s: 1 }, { n: "CRT", s: 1 }, { n: "BCE (BT-205)", s: 1 }] },
+        "Saturday": { before: [{ n: "BCE (BT-205)", s: 1 }, { n: "M-II (BT-202)", s: 1 }, { n: "BME (BT-203)", s: 1 }, { n: "EP (BT-201)", s: 1 }], after: [{ n: "BCEM (BT-204)", s: 1 }, { n: "BME (BT-203)", s: 1 }, { n: "BCE/EP (BT-205/BT-201)", s: 2 }] }
+      };
+      
+      const periods = [
+        { start: "09:00", end: "09:50" }, 
+        { start: "09:50", end: "10:40" }, 
+        { start: "10:40", end: "11:30" }, 
+        { start: "11:30", end: "12:20" }, 
+        { start: "12:20", end: "13:00" }, 
+        { start: "13:00", end: "13:40" }, 
+        { start: "13:40", end: "14:20" }, 
+        { start: "14:20", end: "15:00" }, 
+        { start: "15:00", end: "15:40" }
+      ];
+
+      const holidaysConfig = {
+        "2026-03-21": "Eid-Ul-Fitr",
+        "2026-03-31": "Mahavir Jayanti",
+        "2026-04-03": "Good Friday",
+        "2026-05-01": "Buddha Poornima",
+        "2026-05-27": "Eid - Al - Adha (Bakrid)"
+      };
+
+      function getHolidayInfo(d) {
+        const dateString = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, '0') + "-" + String(d.getDate()).padStart(2, '0');
+        if (holidaysConfig[dateString]) return holidaysConfig[dateString];
+        
+        const day = d.getDate();
+        const weekNumber = Math.floor((day - 1) / 7) + 1;
+        if (d.getDay() === 6 && weekNumber === 4) return "4th Saturday";
+        if (d.getDay() === 0) return "Sunday";
+        return null;
+      }
+
+      function generateTimetable() {
+        const tableBody = document.getElementById('timetable-body');
+        const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        days.forEach((day, dayIndex) => {
+          const row = document.createElement('tr');
+          row.insertCell().innerHTML = `<b>${day}</b>`;
+          scheduleData[day].before.forEach(c => { const cell = row.insertCell(); cell.textContent = c.n; if (c.s > 1) cell.colSpan = c.s; });
+          if (dayIndex === 0) { const lunchCell = row.insertCell(); lunchCell.rowSpan = days.length; lunchCell.innerHTML = '<b>LUNCH</b>'; }
+          scheduleData[day].after.forEach(c => { const cell = row.insertCell(); cell.textContent = c.n; if (c.s > 1) cell.colSpan = c.s; });
+          tableBody.appendChild(row);
+        });
+      }
+
+      function updateDuration() {
+        const s = new Date("2026-03-16");
+        const n = new Date();
+        const diff = n - s;
+        const td = Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
+        let y = n.getFullYear() - s.getFullYear();
+        let m = n.getMonth() - s.getMonth();
+        let d = n.getDate() - s.getDate();
+        if (d < 0) { m--; const pm = new Date(n.getFullYear(), n.getMonth(), 0); d += pm.getDate(); }
+        if (m < 0) { y--; m += 12; }
+        d += 1;
+        let txt = "";
+        if (y > 0) txt += `${y} yr `;
+        if (m > 0) txt += `${m} mon `;
+        txt += `${d} day`;
+        document.getElementById('duration-counter').innerHTML = ` // ${txt} (${td}days)`;
+      }
+
+      let tableMap = [];
+      function createTableMap() {
+        const table = document.getElementById('timetable');
+        const rows = table.rows;
+        const grid = [];
+        for (let i = 0; i < rows.length; i++) { grid.push([]); }
+        for (let y = 0; y < rows.length; y++) {
+          let x = 0;
+          for (let i = 0; i < rows[y].cells.length; i++) {
+            while (grid[y][x]) { x++; }
+            const cell = rows[y].cells[i];
+            const rs = cell.rowSpan || 1; const cs = cell.colSpan || 1;
+            for (let r = 0; r < rs; r++) { for (let c = 0; c < cs; c++) { if (grid[y + r]) { grid[y + r][x + c] = cell; } } }
+            x += cs;
+          }
+        }
+        tableMap = grid;
+      }
+
+      function formatTimeLeft(s) {
+        s = Math.max(0, Math.floor(s));
+        const h = Math.floor(s / 3600); const m = Math.floor((s % 3600) / 60); const sc = s % 60;
+        return `${h > 0 ? h + 'h ' : ''}${m}m ${sc}s`;
+      }
+      
+      function getTimerClass(s) { return s <= 300 ? 'timer-red' : s <= 600 ? 'timer-orange' : 'timer-green'; }
+      function escapeHtml(str) { return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"})[m]); }
+      function parseToMinutes(tm) { const [h, m] = tm.split(':').map(Number); return h * 60 + m; }
+      
+      function getFacultyInfo(cell) {
+        const info = { names: 'TBA', codes: [] };
+        if (!cell) return info;
+        const text = cell.textContent.trim() || '';
+        const ignoreKeys = ['LUNCH'];
+        
+        const codes = text.match(/BT-[0-9]{3}|PD|TG/g);
+        if (codes) {
+          info.codes = codes;
+          const names = codes.map(cd => {
+             const r = document.querySelector(`#faculty tr[data-code="${cd}"]`);
+             return (r && r.cells[2]?.textContent.trim()) || cd;
+          });
+          info.names = [...new Set(names)].join(' / ');
+        } else if (ignoreKeys.includes(text.toUpperCase())) {
+          info.names = '';
+        }
+        return info;
+      }
+
+      function updateStatusBox() {
+        const now = new Date();
+        const nowSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+        const nowMinutes = now.getHours() * 60 + now.getMinutes();
+        const weekday = now.toLocaleString('en-US', { weekday: 'long' });
+        
+        document.getElementById('clock').innerHTML = `<i class="fa-regular fa-clock"></i> ${now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} | ${now.toLocaleTimeString('en-US')}`;
+        
+        const table = document.getElementById('timetable');
+        const allDayRows = Array.from(table.querySelectorAll('tbody tr'));
+        const todayRow = allDayRows.find(r => r.cells?.[0]?.textContent.trim().toLowerCase().startsWith(weekday.toLowerCase()));
+        const statusEl = document.getElementById('classStatus');
+        
+        document.querySelectorAll('#timetableWrapper .current, #timetableWrapper .upcoming, #timetableWrapper .ended, #timetableWrapper .tomorrow-highlight, #timetableWrapper .today-row-header').forEach(el => el.classList.remove('current', 'upcoming', 'ended', 'tomorrow-highlight', 'today-row-header'));
+        document.querySelectorAll('#faculty td.current, #faculty td.upcoming, #faculty td.ended').forEach(el => el.classList.remove('current', 'upcoming', 'ended'));
+        
+        if (todayRow) { todayRow.cells[0].classList.add('today-row-header'); }
+        
+        const holidayToday = getHolidayInfo(now);
+
+        if (holidayToday) {
+            statusEl.innerHTML = `<i class="fa-solid fa-umbrella-beach"></i> <b>Day Off:</b> ${holidayToday}`;
+        } else if (!todayRow) {
+            statusEl.innerHTML = '<i class="fa-solid fa-bed"></i> No classes scheduled for today.';
+        } else {
+            const trIdx = Array.from(table.rows).indexOf(todayRow);
+            const map = tableMap[trIdx] ? tableMap[trIdx].slice(1) : [];
+            const sm = periods.map(p => parseToMinutes(p.start));
+            const em = periods.map(p => parseToMinutes(p.end));
+            
+            let cIdx = periods.findIndex((p, i) => nowMinutes >= sm[i] && nowMinutes < em[i]);
+            let fIdx = -1;
+            if (cIdx > -1) {
+                fIdx = cIdx;
+                const cCell = map[cIdx];
+                if (cCell) { for (let i = cIdx + 1; i < map.length; i++) { if (map[i] === cCell) { fIdx = i; } else { break; } } }
+            }
+            
+            let nIdx = (fIdx > -1) ? fIdx + 1 : periods.findIndex((p, i) => sm[i] > nowMinutes);
+            if (nIdx >= periods.length) nIdx = -1;
+            
+            const fStates = {};
+            const prio = { current: 3, upcoming: 2, ended: 1 };
+            
+            for (let i = 0; i < periods.length; i++) {
+                const cell = map[i];
+                if (!cell) continue;
+                let st;
+                if (nowMinutes >= em[i]) { st = 'ended'; }
+                else if (nowMinutes >= sm[i] && nowMinutes < em[i]) { st = 'current'; }
+                else if (i === nIdx) { st = 'upcoming'; }
+                if (st) {
+                    if (prio[st] > (prio[Array.from(cell.classList).find(c => prio[c])] || 0)) { cell.classList.remove('current', 'upcoming', 'ended'); cell.classList.add(st); }
+                    const info = getFacultyInfo(cell);
+                    info.codes.forEach(code => { if (prio[st] > (prio[fStates[code]] || 0)) { fStates[code] = st; } });
+                }
+            }
+            for (const code in fStates) { const row = document.querySelector(`#faculty tr[data-code="${code}"]`); if (row) { row.querySelectorAll('td').forEach(cell => { cell.classList.add(fStates[code]); }); } }
+            
+            let h = '';
+            let icon = '<i class="fa-solid fa-chalkboard-user"></i>';
+            if (cIdx >= 0 && map[cIdx] && map[cIdx].textContent.trim()) {
+              const cell = map[cIdx];
+              const info = getFacultyInfo(cell);
+              const sub = escapeHtml(cell.textContent.trim());
+              const fac = escapeHtml(info.names);
+              const disp = fac ? `${sub} — ${fac}` : sub;
+              const left = em[fIdx] * 60 - nowSeconds;
+              if (sub.toUpperCase() === 'LUNCH') { icon = '<i class="fa-solid fa-utensils"></i>'; }
+              h += `<b>Ongoing:</b> <span class="notice-ongoing"><b>${disp}</b></span> | Ends in <span class="${getTimerClass(left)}">${formatTimeLeft(left)}</span>. `;
+            }
+            if (nIdx >= 0 && map[nIdx] && map[nIdx].textContent.trim()) {
+              let tnIdx = nIdx;
+              while (tnIdx > 0 && map[tnIdx] === map[tnIdx - 1]) { tnIdx--; }
+              const tnCell = map[tnIdx];
+              if (tnCell) {
+                const info = getFacultyInfo(tnCell);
+                const sub = escapeHtml(tnCell.textContent.trim());
+                const fac = escapeHtml(info.names);
+                const disp = fac ? `${sub} — ${fac}` : sub;
+                const until = sm[tnIdx] * 60 - nowSeconds;
+                h += `<b>Next:</b> <span class="notice-next"><b>${disp}</b></span> | Starts in <span class="${getTimerClass(until)}">${formatTimeLeft(until)}</span>`;
+              }
+            }
+            if (h) {
+                if (cIdx < 0) { icon = '<i class="fa-solid fa-hourglass-start"></i>'; }
+                statusEl.innerHTML = `${icon} ${h}`;
+            } else {
+                icon = '<i class="fa-solid fa-check-to-slot"></i>';
+                statusEl.innerHTML = `${icon} All classes for today have ended.`;
+            }
+        }
+
+        // Logic for highlighting the next working day
+        const lastEnd = parseToMinutes(periods[periods.length - 1].end);
+        const classesEnded = todayRow && nowMinutes >= lastEnd;
+        
+        if (classesEnded || holidayToday || !todayRow) {
+            let nextD = new Date(now);
+            let nextWorkingRow = null;
+            let nextDayName = "";
+            for(let k = 1; k <= 7; k++) {
+                nextD.setDate(nextD.getDate() + 1);
+                if (!getHolidayInfo(nextD)) {
+                    nextDayName = nextD.toLocaleString('en-US', { weekday: 'long' });
+                    nextWorkingRow = allDayRows.find(r => r.cells?.[0]?.textContent.trim().toLowerCase().startsWith(nextDayName.toLowerCase()));
+                    if (nextWorkingRow) break;
+                }
+            }
+            if (nextWorkingRow) {
+              const leg = document.getElementById('tomorrow-legend-text');
+              if (leg) leg.textContent = "Next: " + nextWorkingRow.cells[0].textContent.trim();
+              for (let i = 1; i < nextWorkingRow.cells.length; i++) { nextWorkingRow.cells[i].classList.add('tomorrow-highlight'); }
+            }
+        }
+        
+        updateDuration();
+      }
+
+      generateTimetable();
+      createTableMap();
+      setInterval(updateStatusBox, 1000);
+      updateStatusBox();
+    </script>
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
 
 
 
